@@ -13,7 +13,7 @@ listbl <- function(name, label, value) {
     }) |>
     rapply(function(x) NULL,
            how = "replace")
-  class(res) <- "listbl"
+  class(res) <- c("listbl", class(res))
   names(res) <- attr_listbl$name
   attr(res, "listbl") <- attr_listbl
   res
@@ -59,6 +59,20 @@ as.list.listbl <- function(x, ...) {
   names(res) <- paste(attr_listbl$label, attr_listbl$name,
                       sep = ".")
   res
+}
+
+#' @export
+as.data.frame.listbl <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  attr(x, "listbl") |>
+    as.data.frame()
+}
+
+#' @export
+as_tibble.listbl <- function(x, ...) {
+  ellipsis::check_dots_empty()
+  as.data.frame.listbl(x) |>
+    as_tibble()
 }
 
 #' @export

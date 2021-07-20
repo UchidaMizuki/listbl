@@ -29,7 +29,6 @@ select.listbl <- function(.data, ...) {
   attr_listbl <- attr_listbl |>
     filter(label %in% col_names)
 
-  # FIXME
   res <- listbl(name = attr_listbl$name,
                 label = attr_listbl$label,
                 value = attr_listbl$value)
